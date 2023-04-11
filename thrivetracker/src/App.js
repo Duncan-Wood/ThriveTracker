@@ -1,26 +1,26 @@
-// Yael's App.js
 
 import './App.css';
-// import Header from './components/Header'
-// import Main from './components/Main'
-// import {useState} from 'react'
-// import {AppContext} from './Context/AppContext'
+import {AppContext} from './Context/AppContext'
+
+import Header from './Components/Header'
+import Main from './Components/Main'
+import Footer from './Components/Footer'
 
 function App() {
 
-  // const [search, setSearch] = useState ({
-  //   category:'', query:'', formContent:''
-  // })
-
   return (
     <div className="App">
-      {/* <AppContext.Provider value>  */}
+      <AppContext.Provider value> 
       <header className="App-header">
+        <Header/>
       </header>
       <main>
-        {/* <Main/> */}
+        <Main/>
       </main>
-      {/* </AppContext.Provider> */}
+      <footer>
+        <Footer/>
+      </footer>
+      </AppContext.Provider>
     </div>
   );
 }

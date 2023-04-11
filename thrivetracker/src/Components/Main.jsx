@@ -1,38 +1,30 @@
 import {Route, Routes} from 'react-router-dom'
+
 import Home from './Home'
-// import Artists from './Artists'
-// import ArtistDetail from './ArtistDetail'
-// import Events from './Events'
-// import EventDetail from './EventDetail'
-// import Venues from './Venues'
-// import VenueDetail from './VenueDetail'
-// import UserProfile from './UserProfile'
-// import Login from './Login'
-// import Register from './Register'
-// import SearchResults from './SearchResults'
-// import Tickets from './Tickets'
-// import Confirmation from './Confirmation'
+import Register from './Register'
+import Login from './Login'
+import Header from './Header'
+import Nav from './Nav'
+import Steps from './Steps'
+import StepDetails from './StepDetails'
+import Profile from './Profile'
+import TimeTracker from './TimeTracker'
+import MoneyTracker from './MoneyTracker'
 
 export default function Main(){
     return(
         <div>
             <Routes>
                 <Route path= "/" element= {<Home/>}/>
-                {/* <Route path= "/venues" element= {<Venues/>}/>
-                <Route path= "/venues/:id" element= {<VenueDetail/>}/>
-                <Route path = "/artists" element = {<Artists/>}/>
-                <Route path = "/artists/:id" element = {<ArtistDetail/>}/>
-                <Route path= "/events" element= {<Events/>}/>
-                <Route path = "/events/:id" element = {<EventDetail/>}/>
-                <Route path = "/profile" element = {<UserProfile/>}/>
-                <Route path = "/login" element = {<Login/>}/>
                 <Route path = "/register" element = {<Register/>}/>
-                <Route path = "/tickets/:id" element = {<Tickets/>}/>
-                <Route path = "/confirmation/" element = {<Confirmation/>}/>
-                <Route path= "/searchresults/" element= {<SearchResults/>}/>
-                <Route path= "/searchresults/artistsDetail/:id" element= {<ArtistDetail/>}/>
-                <Route path= "/searchresults/venuesDetail/:id" element= {<VenueDetail/>}/>
-                <Route path= "/searchresults/eventsDetail/:id" element= {<EventDetail/>}/> */}
+                <Route path = "/login" element = {<Login/>}/>
+                <Route path = "/steps" element = {<Steps/>}/>
+                <Route path = "/steps/:id" element = {<StepDetails/>}/>
+                <Route path = "/profile" element = {<Profile/>}/>
+                <Route path = "/timetracker" element = {<TimeTracker/>}/>
+                <Route path = "/moneytracker" element = {<MoneyTracker/>}/>
+                <Route path = "/nav" element = {<Nav/>}/>
+                <Route path = "/header" element = {<Header/>}/>
             </Routes>
         </div>
     )
