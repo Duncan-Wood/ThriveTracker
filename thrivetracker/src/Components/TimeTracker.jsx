@@ -1,44 +1,52 @@
-import { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 export default function TimeTracker() {
   let navigate = useNavigate();
+  let { index } = useParams();
 
-  const { addictions } = useContext(AppContext);
-  //   const { moneyTrackers } = useContext(AppContext);
-  //   const { tokens } = useContext(AppContext);
-  //   const goBack = () => {
-  //     navigate(-1);
-  //   };
+
+  const { addictions, timeTrackers } = useContext(AppContext);
 
   const showTimeTracker = (index) => {
     navigate(`/timetracker/details/${index}`);
   };
 
   return (
-    <div>
-      {/* <button onClick={goBack}>go back</button> */}
-      <h2>time-tracker page</h2>
+    <>
       <div>
-        <h3>Time Trackers</h3>
-        <ul>
-          {addictions
-            ? addictions.map((addiction, index) => (
-                <li
-                  key={index}
-                  onClick={() => {
-                    showTimeTracker(index);
-                  }}
+        <h3 className="text-2xl font-bold mb-4">Time Trackers</h3>
+        {timeTrackers && addictions ? (
+          timeTrackers.map((timeTracker, index) => {
+            const matchingAddiction = addictions.find(
+              (addiction) => addiction.id === timeTracker.user_addiction
+            );
+
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-md p-4 mb-4 flex justify-between items-center"
+              >
+                <div>
+                  <h4 className="text-lg font-semibold">
+                    {matchingAddiction ? matchingAddiction.addiction : "Unknown"}
+                  </h4>
+                  <p className="text-gray-500">{timeTracker.description}</p>
+                </div>
+                <button
+                  className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
+                  onClick={() => showTimeTracker(index)}
                 >
-                  <h3>{addiction.addiction}</h3>
-                  <p>{addiction.description}</p>
-                </li>
-              ))
-            : 
-            <div>Loading...</div>}
-        </ul>
+                  View Details
+                </button>
+              </div>
+            );
+          })
+        ) : (
+          <p>Loading time trackers...</p>
+        )}
       </div>
-    </div>
+    </>
   );
 }
