@@ -4,8 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function TimeTracker() {
   let navigate = useNavigate();
-  let { index } = useParams();
-
 
   const { addictions, timeTrackers } = useContext(AppContext);
 

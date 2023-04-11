@@ -7,6 +7,13 @@ export default function TimeTrackerDetails() {
     let { index } = useParams();
     const navigate = useNavigate();
 
+    if (timeTrackers) {
+        console.log(index)
+    }
+
+    //get a live count of the time tracker
+    
+
     // State to hold progress percentage
     const [daysProgress, setDaysProgress] = useState(0);
     const [hoursProgress, setHoursProgress] = useState(0);
