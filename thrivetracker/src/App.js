@@ -9,44 +9,64 @@ import Footer from "./Components/Footer";
 
 function App() {
 
-  const [addictions, setAddictions] = useState(null);
-  const [timeTrackers, setTimeTrackers] = useState(null);
-  const [moneyTrackers, setMoneyTrackers] = useState(null);
-  const [tokens, setTokens] = useState(null);
+  const [addictions, setAddictions] = useState([]);
+  const [timeTrackers, setTimeTrackers] = useState([]);
+  const [moneyTrackers, setMoneyTrackers] = useState([]);
+  const [tokens, setTokens] = useState([]);
   const BASE_URL = "http://localhost:8000";
-
+  
   useEffect(() => {
     const getAddictions = async () => {
-      const res = await axios.get(`${BASE_URL}/addictions/`);
-      console.log(res.data);
-      setAddictions(res.data);
+      try {
+        const res = await axios.get(`${BASE_URL}/addictions/`);
+        setAddictions(res.data);
+      } catch (error) {
+        console.error("Error fetching addictions: ", error);
+      }
     };
     getAddictions();
   }, []);
+  
   useEffect(() => {
-    const gettimeTrackers = async () => {
-      const res = await axios.get(`${BASE_URL}/time-trackers/`);
-      console.log(res.data);
-      setTimeTrackers(res.data);
+    const getTimeTrackers = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/time-trackers/`);
+        setTimeTrackers(res.data);
+      } catch (error) {
+        console.error("Error fetching time trackers: ", error);
+      }
     };
-    gettimeTrackers();
+    getTimeTrackers();
   }, []);
+  
   useEffect(() => {
-    const getmoneyTrackers = async () => {
-      const res = await axios.get(`${BASE_URL}/money-trackers/`);
-      console.log(res.data);
-      setMoneyTrackers(res.data);
+    const getMoneyTrackers = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/money-trackers/`);
+        setMoneyTrackers(res.data);
+      } catch (error) {
+        console.error("Error fetching money trackers: ", error);
+      }
     };
-    getmoneyTrackers();
+    getMoneyTrackers();
   }, []);
+  
   useEffect(() => {
     const getTokens = async () => {
-      const res = await axios.get(`${BASE_URL}/tokens/`);
-      console.log(res.data);
-      setTokens(res.data);
+      try {
+        const res = await axios.get(`${BASE_URL}/tokens/`);
+        setTokens(res.data);
+      } catch (error) {
+        console.error("Error fetching tokens: ", error);
+      }
     };
     getTokens();
   }, []);
+
+  console.log("Addictions: ", addictions)
+  console.log("Time Trackers: ", timeTrackers)
+  console.log("Money Trackers: ", moneyTrackers)
+  console.log("Tokens: ", tokens)
 
   return (
     <div className="App">

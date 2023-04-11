@@ -23,7 +23,9 @@ export default function Main(){
                 <Route path = "/steps/:id" element = {<StepDetails/>}/> */}
                 <Route path = "/profile" element = {<Profile/>}/>
                 <Route path = "/timetracker" element = {<TimeTracker/>}/>
+                <Route path = "/timetracker/details/:id" element = {<TimeTracker/>}/>
                 <Route path = "/moneytracker" element = {<MoneyTracker/>}/>
+                <Route path = "/moneytracker/details/:id" element = {<MoneyTracker/>}/>
                 <Route path = "/nav" element = {<Nav/>}/>
                 <Route path = "/header" element = {<Header/>}/>
                 <Route path = "/tokens" element = {<Tokens/>}/>
