@@ -9,6 +9,7 @@ import Nav from './Nav'
 // import StepDetails from './StepDetails'
 import Profile from './Profile'
 import TimeTracker from './TimeTracker'
+import TimeTrackerDetails from './TimeTrackerDetails'
 import MoneyTracker from './MoneyTracker'
 import Tokens from './Tokens'
 
@@ -23,7 +24,7 @@ export default function Main(){
                 <Route path = "/steps/:id" element = {<StepDetails/>}/> */}
                 <Route path = "/profile" element = {<Profile/>}/>
                 <Route path = "/timetracker" element = {<TimeTracker/>}/>
-                <Route path = "/timetracker/details/:id" element = {<TimeTracker/>}/>
+                <Route path = "/timetracker/details/:id" element = {<TimeTrackerDetails/>}/>
                 <Route path = "/moneytracker" element = {<MoneyTracker/>}/>
                 <Route path = "/moneytracker/details/:id" element = {<MoneyTracker/>}/>
                 <Route path = "/nav" element = {<Nav/>}/>

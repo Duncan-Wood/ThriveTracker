@@ -9,10 +9,10 @@ import Footer from "./Components/Footer";
 
 function App() {
 
-  const [addictions, setAddictions] = useState([]);
-  const [timeTrackers, setTimeTrackers] = useState([]);
-  const [moneyTrackers, setMoneyTrackers] = useState([]);
-  const [tokens, setTokens] = useState([]);
+  const [addictions, setAddictions] = useState(null);
+  const [timeTrackers, setTimeTrackers] = useState(null);
+  const [moneyTrackers, setMoneyTrackers] = useState(null);
+  const [tokens, setTokens] = useState(null);
   const BASE_URL = "http://localhost:8000";
   
   useEffect(() => {
@@ -79,9 +79,9 @@ function App() {
         <main>
           <Main />
         </main>
-        <footer>
+        {/* <footer>
           <Footer />
-        </footer>
+        </footer> */}
       </AppContext.Provider>
     </div>
   );
