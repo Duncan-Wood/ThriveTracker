@@ -3,7 +3,7 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function TimeTrackerDetails() {
-  const { timeTrackers } = useContext(AppContext);
+  const { timeTrackers, setTimeTrackers } = useContext(AppContext);
   let { index } = useParams();
   const navigate = useNavigate();
 
@@ -30,7 +30,9 @@ export default function TimeTrackerDetails() {
       // Check if timeTrackers data is loaded
       // Convert the string values to JavaScript Date objects
       const startTime = new Date(timeTrackers[index].start_time);
-      let endTime = timeTrackers[index].end_time ? new Date(timeTrackers[index].end_time) : null;
+      let endTime = timeTrackers[index].end_time
+        ? new Date(timeTrackers[index].end_time)
+        : null;
 
       // If end_time is null, update it to current time
       if (!endTime) {
@@ -61,11 +63,32 @@ export default function TimeTrackerDetails() {
           setSecondsProgress((seconds * 100) / 60);
         }, 1000);
         return () => clearInterval(interval);
+      } else {
+        setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
+        setHoursProgress((hours * 100) / 24);
+        setMinutesProgress((minutes * 100) / 60);
+        setSecondsProgress((seconds * 100) / 60);
       }
     }
   }, [timeTrackers, index]);
 
+  // Update, Delete
   
+  // // Function to handle updating an existing time tracker
+  // const handleUpdateTimeTracker = () => {
+  //   // Call the updateTimeTracker function from your context to update the existing time tracker
+  //   updateTimeTracker(/* Pass the necessary data for updating the time tracker */);
+  //   // Navigate to the appropriate page, e.g., list of time trackers
+  //   navigate(/* Pass the appropriate path for the list of time trackers */);
+  // };
+
+  // // Function to handle deleting a time tracker
+  // const handleDeleteTimeTracker = () => {
+  //   // Call the deleteTimeTracker function from your context to delete the time tracker
+  //   deleteTimeTracker(/* Pass the index or ID of the time tracker to be deleted */);
+  //   // Navigate to the appropriate page, e.g., list of time trackers
+  //   navigate(/* Pass the appropriate path for the list of time trackers */);
+  // };
 
   return (
     <>
@@ -120,6 +143,10 @@ export default function TimeTrackerDetails() {
               <span className="text-lg">{seconds} seconds / 60 seconds</span>
             </div>
           </div>
+          {/* onClick={handleUpdateTimeTracker} */}
+          <button>Update Time Tracker</button>
+          {/* onClick={handleDeleteTimeTracker} */}
+          <button>Delete Time Tracker</button>
         </div>
       ) : (
         <div>Loading...</div>

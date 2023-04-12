@@ -11,10 +11,11 @@ function App() {
 
   const [addictions, setAddictions] = useState(null);
   const [timeTrackers, setTimeTrackers] = useState(null);
-  const [moneyTrackers, setMoneyTrackers] = useState(null);
+  const [Savings, setSavings] = useState(null);
   const [tokens, setTokens] = useState(null);
   const BASE_URL = "http://localhost:8000";
   
+  //READ
   useEffect(() => {
     const getAddictions = async () => {
       try {
@@ -40,15 +41,15 @@ function App() {
   }, []);
   
   useEffect(() => {
-    const getMoneyTrackers = async () => {
+    const getSavings = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/money-trackers/`);
-        setMoneyTrackers(res.data);
+        const res = await axios.get(`${BASE_URL}/savings/`);
+        setSavings(res.data);
       } catch (error) {
-        console.error("Error fetching money trackers: ", error);
+        console.error("Error fetching savings: ", error);
       }
     };
-    getMoneyTrackers();
+    getSavings();
   }, []);
   
   useEffect(() => {
@@ -65,13 +66,13 @@ function App() {
 
   console.log("Addictions: ", addictions)
   console.log("Time Trackers: ", timeTrackers)
-  console.log("Money Trackers: ", moneyTrackers)
+  console.log("Money Trackers: ", Savings)
   console.log("Tokens: ", tokens)
 
   return (
     <div className="App">
       <AppContext.Provider
-        value={{ addictions, timeTrackers, moneyTrackers, tokens, BASE_URL }}
+        value={{ addictions, timeTrackers, Savings, tokens, BASE_URL }}
       >
         <header className="App-header">
           <Header />
