@@ -3,9 +3,23 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 
 export default function TimeTracker() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const { timeTrackers } = useContext(AppContext);
+  const [selectedTimeTrackerIndex, setSelectedTimeTrackerIndex] =
+    useState(null);
 
-  const { addictions, timeTrackers } = useContext(AppContext);
+  useEffect(() => {
+    // Update the selectedTimeTrackerIndex state when timeTrackers change
+    // to ensure that the correct index is selected
+    if (timeTrackers && selectedTimeTrackerIndex === null) {
+      const matchingIndex = timeTrackers.findIndex(
+        (timeTracker) =>
+          timeTracker.user_addiction.id ===
+          (timeTrackers[selectedTimeTrackerIndex]?.user_addiction.id || null)
+      );
+      setSelectedTimeTrackerIndex(matchingIndex);
+    }
+  }, [timeTrackers, selectedTimeTrackerIndex]);
 
   const showTimeTracker = (index) => {
     navigate(`/timetracker/details/${index}`);
@@ -15,12 +29,8 @@ export default function TimeTracker() {
     <>
       <div>
         <h3 className="text-2xl font-bold mb-4">Time Trackers</h3>
-        {timeTrackers && addictions ? (
+        {timeTrackers ? (
           timeTrackers.map((timeTracker, index) => {
-            const matchingAddiction = addictions.find(
-              (addiction) => addiction.id === timeTracker.user_addiction
-            );
-
             return (
               <div
                 key={index}
@@ -28,7 +38,7 @@ export default function TimeTracker() {
               >
                 <div>
                   <h4 className="text-lg font-semibold">
-                    {matchingAddiction ? matchingAddiction.addiction : "Unknown"}
+                    {timeTracker.user_addiction.addiction}
                   </h4>
                   <p className="text-gray-500">{timeTracker.description}</p>
                 </div>

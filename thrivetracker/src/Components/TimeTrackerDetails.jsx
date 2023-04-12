@@ -3,35 +3,39 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function TimeTrackerDetails() {
-    const { addictions, timeTrackers } = useContext(AppContext);
-    let { index } = useParams();
-    const navigate = useNavigate();
+  const { timeTrackers } = useContext(AppContext);
+  let { index } = useParams();
+  const navigate = useNavigate();
 
-    if (timeTrackers) {
-        console.log(index)
-    }
+  if (timeTrackers) {
+    console.log(index);
+  }
 
-    //get a live count of the time tracker
-    
+  //get a live count of the time tracker
 
-    // State to hold progress percentage
-    const [daysProgress, setDaysProgress] = useState(0);
-    const [hoursProgress, setHoursProgress] = useState(0);
-    const [minutesProgress, setMinutesProgress] = useState(0);
-    const [secondsProgress, setSecondsProgress] = useState(0);
+  // State to hold progress percentage
+  const [daysProgress, setDaysProgress] = useState(0);
+  const [hoursProgress, setHoursProgress] = useState(0);
+  const [minutesProgress, setMinutesProgress] = useState(0);
+  const [secondsProgress, setSecondsProgress] = useState(0);
 
-    // State to hold days, hours, minutes, and seconds
-    const [days, setDays] = useState(0);
-    const [hours, setHours] = useState(0);
-    const [minutes, setMinutes] = useState(0);
-    const [seconds, setSeconds] = useState(0);
+  // State to hold days, hours, minutes, and seconds
+  const [days, setDays] = useState(0);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     if (timeTrackers && timeTrackers.length > 0) {
       // Check if timeTrackers data is loaded
       // Convert the string values to JavaScript Date objects
       const startTime = new Date(timeTrackers[index].start_time);
-      const endTime = new Date(timeTrackers[index].end_time);
+      let endTime = timeTrackers[index].end_time ? new Date(timeTrackers[index].end_time) : null;
+
+      // If end_time is null, update it to current time
+      if (!endTime) {
+        endTime = new Date();
+      }
 
       // Calculate the duration in milliseconds
       const durationInMilliseconds = endTime - startTime;
@@ -48,23 +52,27 @@ export default function TimeTrackerDetails() {
       setMinutes(minutes);
       setSeconds(seconds);
 
-      // Update progress percentage every second
-      const interval = setInterval(() => {
-        setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
-        setHoursProgress((hours * 100) / 24);
-        setMinutesProgress((minutes * 100) / 60);
-        setSecondsProgress((seconds * 100) / 60);
-      }, 1000);
-      return () => clearInterval(interval);
+      // Update progress percentage every second if endTime is null
+      if (!timeTrackers[index].end_time) {
+        const interval = setInterval(() => {
+          setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
+          setHoursProgress((hours * 100) / 24);
+          setMinutesProgress((minutes * 100) / 60);
+          setSecondsProgress((seconds * 100) / 60);
+        }, 1000);
+        return () => clearInterval(interval);
+      }
     }
   }, [timeTrackers, index]);
 
+  
+
   return (
     <>
-      {timeTrackers && addictions ? (
+      {timeTrackers ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {addictions[0].addiction} free for
+            I've been {timeTrackers[index].user_addiction.addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
