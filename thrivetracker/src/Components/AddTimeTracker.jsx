@@ -4,8 +4,14 @@ import Client from "../Services/api";
 import { BASE_URL } from "../Services/api";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { format } from 'date-fns'
+
+
 
 export default function AddTimeTracker() {
+  format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+
+
   const [timeTrackers, setTimeTrackers] = useState([]);
   let { index } = useParams();
 
@@ -27,8 +33,8 @@ export default function AddTimeTracker() {
     user: 1,
     addiction: "",
     addiction_description: "",
-    start_time: '',
-    end_time: '',
+    start_time: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+    // end_time: '',
     money_per_day: 0,
   });
 

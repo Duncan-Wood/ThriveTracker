@@ -6,8 +6,8 @@ export default function TimeTracker() {
   const navigate = useNavigate();
   const { timeTrackers } = useContext(AppContext);
 
-  const showTimeTracker = (index) => {
-    navigate(`/timetracker/details/${index}`);
+  const showTimeTracker = (id) => {
+    navigate(`/timetracker/details/${id}`);
   };
   const handleAddTimeTracker = () => {
     navigate("/addtimetracker");
@@ -21,10 +21,10 @@ export default function TimeTracker() {
         <button onClick={handleAddTimeTracker}>Add Time Tracker</button>
 
         {timeTrackers ? (
-          timeTrackers.map((timeTracker, index) => {
+          timeTrackers.map((timeTracker, id) => {
             return (
               <div
-                key={index}
+                key={id}
                 className="bg-white rounded-lg shadow-md p-4 mb-4 flex justify-between items-center"
               >
                 <div>
@@ -35,7 +35,7 @@ export default function TimeTracker() {
                 </div>
                 <button
                   className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
-                  onClick={() => showTimeTracker(index)}
+                  onClick={() => showTimeTracker(timeTracker.id)}
                 >
                   View Details
                 </button>

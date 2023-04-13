@@ -1,14 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
-
+import Client from "../Services/api";
 
 export default function TimeTrackerDetails() {
   const { timeTrackers } = useContext(AppContext);
 
-  let { index } = useParams();
+  let { id } = useParams();
   const navigate = useNavigate();
 
+  // Use state to handle initial state of timeTracker
+  const [timeTracker, setTimeTracker] = useState(null);
+
+  // Use effect to find the time tracker with matching id
+  // prevent this from running until timeTrackers array is loaded
+  useEffect(() => {
+    // Check if timeTrackers array is loaded
+    if (timeTrackers && timeTrackers.length > 0) {
+      // Find the time tracker with matching id
+      const foundTimeTracker = timeTrackers.find((tracker) => tracker.id === id);
+  
+      // Set the timeTracker state if found
+      if (foundTimeTracker) {
+        setTimeTracker(foundTimeTracker);
+        console.log(timeTracker);
+      }
+    }
+  }, [timeTrackers, id]);
+  
+  console.log(timeTracker);
+  console.log(id)
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -23,12 +44,12 @@ export default function TimeTrackerDetails() {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if (timeTrackers && timeTrackers.length > 0) {
-      // Check if timeTrackers data is loaded
+    if (timeTracker) {
+      // Check if timeTracker data is loaded
       // Convert the string values to JavaScript Date objects
-      const startTime = new Date(timeTrackers[index].start_time);
-      let endTime = timeTrackers[index].end_time
-        ? new Date(timeTrackers[index].end_time)
+      const startTime = new Date(timeTracker.start_time);
+      let endTime = timeTracker.end_time
+        ? new Date(timeTracker.end_time)
         : null;
 
       // If end_time is null, update it to current time
@@ -52,7 +73,7 @@ export default function TimeTrackerDetails() {
       setSeconds(seconds);
 
       // Update progress percentage every second if endTime is null
-      if (!timeTrackers[index].end_time) {
+      if (!timeTracker.end_time) {
         const interval = setInterval(() => {
           setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
           setHoursProgress((hours * 100) / 24);
@@ -67,22 +88,23 @@ export default function TimeTrackerDetails() {
         setSecondsProgress((seconds * 100) / 60);
       }
     }
-  }, [timeTrackers, index]);
+  }, [timeTracker]);
 
-  // // Function to handle deleting a time tracker
-  // const handleDeleteTimeTracker = () => {
-  //   // Call the deleteTimeTracker function from your context to delete the time tracker
-  //   deleteTimeTracker(/* Pass the index or ID of the time tracker to be deleted */);
-  //   // Navigate to the appropriate page, e.g., list of time trackers
-  //   navigate(/* Pass the appropriate path for the list of time trackers */);
-  // };
+  // Function to handle deleting a time tracker
+  const handleDeleteTimeTracker = () => {
+    // Call the deleteTimeTracker function from your context to delete the time tracker
+    console.log(`deleted TimeTracker ${id}`);
+    Client.delete(`/time-trackers/${id}`);
+    // Navigate to the appropriate page, e.g., list of time trackers
+    navigate("/timetracker");
+  };
 
   return (
     <>
       {timeTrackers ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {timeTrackers[index].addiction} free for
+            I've been {timeTracker.addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
@@ -133,7 +155,12 @@ export default function TimeTrackerDetails() {
           {/* onClick={handleUpdateTimeTracker} */}
           <button>Update Time Tracker</button>
           {/* onClick={handleDeleteTimeTracker} */}
-          <button>Delete Time Tracker</button>
+          <button
+            onClick={handleDeleteTimeTracker}
+            className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
+          >
+            Delete Time Tracker
+          </button>
         </div>
       ) : (
         <div>Loading...</div>
