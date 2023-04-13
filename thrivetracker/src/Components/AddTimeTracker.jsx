@@ -1,132 +1,207 @@
 // import React, { useContext, useEffect, useState } from "react";
-import React, { useState } from "react";
-
-// import { AppContext } from "../Context/AppContext";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
+import React, { useState, useEffect } from "react";
+import Client from "../Services/api";
+import { BASE_URL } from "../Services/api";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function AddTimeTracker() {
-  // const navigate = useNavigate();
-  // const { timeTrackers, setTimeTrackers, BASE_URL } = useContext(AppContext);
+  const [timeTrackers, setTimeTrackers] = useState([]);
+  let { index } = useParams();
 
-  // const showTimeTracker = (index) => {
-  //   navigate(`/timetracker/details/${index}`);
-  // };
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getTimeTrackers = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/time-trackers/`);
+        setTimeTrackers(res.data);
+      } catch (error) {
+        console.error("Error fetching time trackers: ", error);
+      }
+    };
+    getTimeTrackers();
+  }, []);
 
   const [formData, setFormData] = useState({
     user: 1,
-    user_addiction: {
-      addiction: null,
-      description: null,
-      user: 1,
-    },
-    start_time: new Date(),
-    end_time: null,
-    savings: {
-      user: 1,
-      money_per_day: null,
-      money_per_day_currency: "USD",
-      time_tracker: null,
-    },
+    addiction: "",
+    addiction_description: "",
+    start_time: '',
+    end_time: '',
+    money_per_day: 0,
   });
 
   const handleChange = (e) => {
-    e.preventDefault();
-    let { name, value } = e.target;
-    setFormData((formData) => ({
-      ...formData,
-      [name]: value,
-    }));
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  console.log(formData);
+
+
+  const handleSubmit = () => {
+    console.log(formData);
+    Client.post(`/time-trackers/`, formData)
+      .then(() => {
+        navigate(`/timetracker`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit();
+    // handleUpdateTimeTracker()
+    navigate(`/timetracker`);
+  };
 
   return (
-    <form className="max-w-md mx-auto">
-      <h2 className="text-lg font-medium mb-4">User Addiction</h2>
+    <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
       <div className="mb-4">
-        <label htmlFor="addiction" className="block text-sm font-medium mb-1">
-          Addiction
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="addiction"
+        >
+          Addiction:
         </label>
         <input
-          type="text"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="addiction"
-          name="user_addiction.addiction"
-          value={formData.user_addiction.addiction || ""}
+          type="text"
+          name="addiction"
+          value={formData.addiction}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Enter addiction"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="description" className="block text-sm font-medium mb-1">
-          Description
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="description"
+        >
+          Description:
         </label>
-        <textarea
-          id="description"
-          name="user_addiction.description"
-          value={formData.user_addiction.description || ""}
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="addiction_description"
+          type="text"
+          name="addiction_description"
+          value={formData.addiction_description}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        ></textarea>
+          placeholder="Enter description"
+        />
       </div>
-
-      <h2 className="text-lg font-medium mb-4">Savings</h2>
+      {/* <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="start_time"
+        >
+          Start Time:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="start_time"
+          type="datetime-local"
+          name="start_time"
+          value={formData.start_time}
+          onChange={handleChange}
+        />
+      </div>
       <div className="mb-4">
         <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="end_time"
+        >
+          End Time:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="end_time"
+          type="datetime-local"
+          name="end_time"
+          value={formData.end_time}
+          onChange={handleChange}
+        />
+      </div> */}
+       <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="start_time"
+        >
+          Start Time:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="start_time"
+          type="text"
+          name="start_time"
+          value={formData.start_time}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="end_time"
+        >
+          End Time:
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="end_time"
+          type="text"
+          name="end_time"
+          value={formData.end_time}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="money_per_day"
-          className="block text-sm font-medium mb-1"
         >
-          Money per day
+          Money per Day:
         </label>
         <input
-          type="text"
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="money_per_day"
-          name="savings.money_per_day"
-          value={formData.savings.money_per_day || ""}
+          type="text"
+          name="money_per_day"
+          value={formData.money_per_day}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Enter money per day"
         />
       </div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label
+          className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="money_per_day_currency"
-          className="block text-sm font-medium mb-1"
         >
-          Currency
-        </label>
-        <select
-          id="money_per_day_currency"
-          name="savings.money_per_day_currency"
-          value={formData.savings.money_per_day_currency || ""}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-        >
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-        </select>
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="time_tracker"
-          className="block text-sm font-medium mb-1"
-        >
-          Time Tracker
+          Money per Day Currency:
         </label>
         <input
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="money_per_day_currency"
           type="text"
-          id="time_tracker"
-          name="savings.time_tracker"
-          value={formData.savings.time_tracker || ""}
+          name="money_per_day_currency"
+          value={formData.money_per_day_currency}
           onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          placeholder="Enter money per day currency"
         />
-      </div>
+      </div> */}
 
-      <button
-        type="submit"
-        className="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-      >
-        Submit
-      </button>
+      {/* <div className="mb-4">
+    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time_tracker">
+      {/* <label>
+        Time Tracker:
+        <input
+          type="text"
+          name="savings.time_tracker"
+          value={formData.savings.time_tracker}
+          onChange={handleChange}
+        />
+      </label> */}
+      <button type="submit">Submit</button>
     </form>
   );
 }

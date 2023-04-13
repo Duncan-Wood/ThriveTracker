@@ -19,30 +19,6 @@ export default function Nav() {
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
                 <Link
-                  to="/register"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Register
-                </Link>
-                <Link
-                  to="/login"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
-                {/* <Link
-                  to="/steps"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Steps
-                </Link> */}
-                <Link
-                  to="/profile"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Profile
-                </Link>
-                <Link
                   to="/tokens"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
@@ -52,7 +28,13 @@ export default function Nav() {
                   to="/timetracker"
                   className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  Time Tracker
+                  Time Trackers
+                </Link>
+                <Link
+                  to="/addtimetracker"
+                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  Add Time Tracker
                 </Link>
                 <Link
                   to="/moneytracker"
@@ -109,30 +91,6 @@ export default function Nav() {
       <div className={`${isOpen ? "block" : "hidden"} md:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
-            to="/register"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Register
-          </Link>
-          <Link
-            to="/login"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Login
-          </Link>
-          {/* <Link
-                        to="/steps"
-                        className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-                    >   
-                        Steps
-                    </Link> */}
-          <Link
-            to="/profile"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Profile
-          </Link>
-          <Link
             to="/tokens"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
@@ -142,7 +100,13 @@ export default function Nav() {
             to="/timetracker"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
-            Time Tracker
+            Time Trackers
+          </Link>
+          <Link
+            to="/addtimetracker"
+            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            Add Time Tracker
           </Link>
           <Link
             to="/moneytracker"

@@ -1,21 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { useParams } from "react-router-dom";
-// import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 
 export default function TimeTrackerDetails() {
   const { timeTrackers } = useContext(AppContext);
-  // const { setTimeTrackers } = useContext(AppContext);
 
   let { index } = useParams();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // if (timeTrackers) {
-  //   console.log(index);
-  // }
-
-  //get a live count of the time tracker
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -76,16 +69,6 @@ export default function TimeTrackerDetails() {
     }
   }, [timeTrackers, index]);
 
-  // Update, Delete
-  
-  // // Function to handle updating an existing time tracker
-  // const handleUpdateTimeTracker = () => {
-  //   // Call the updateTimeTracker function from your context to update the existing time tracker
-  //   updateTimeTracker(/* Pass the necessary data for updating the time tracker */);
-  //   // Navigate to the appropriate page, e.g., list of time trackers
-  //   navigate(/* Pass the appropriate path for the list of time trackers */);
-  // };
-
   // // Function to handle deleting a time tracker
   // const handleDeleteTimeTracker = () => {
   //   // Call the deleteTimeTracker function from your context to delete the time tracker
@@ -99,7 +82,7 @@ export default function TimeTrackerDetails() {
       {timeTrackers ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {timeTrackers[index].user_addiction.addiction} free for
+            I've been {timeTrackers[index].addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">

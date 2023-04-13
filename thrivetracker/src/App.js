@@ -64,7 +64,7 @@ function App() {
   }, []);
 
   // console.log("Addictions: ", addictions)
-  // console.log("Time Trackers: ", timeTrackers)
+  console.log("Time Trackers: ", timeTrackers)
   // console.log("Money Trackers: ", Savings)
   // console.log("Tokens: ", tokens)
 
