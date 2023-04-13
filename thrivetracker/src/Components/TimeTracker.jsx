@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 export default function TimeTracker() {
   const navigate = useNavigate();
-  const { timeTrackers, BASE_URL } = useContext(AppContext);
-  const [selectedTimeTrackerIndex, setSelectedTimeTrackerIndex] =
-    useState(null);
+  const { timeTrackers } = useContext(AppContext);
 
+  const [selectedTimeTrackerIndex, setSelectedTimeTrackerIndex] = useState(null);
+
+
+  // Function to fetch time trackers from the API
   useEffect(() => {
     // Update the selectedTimeTrackerIndex state when timeTrackers change
     // to ensure that the correct index is selected
@@ -25,20 +26,13 @@ export default function TimeTracker() {
   const showTimeTracker = (index) => {
     navigate(`/timetracker/details/${index}`);
   };
-  
-  // // Function to handle adding a new time tracker
-  // const handleAddTimeTracker = () => {
-  //   // Call the addTimeTracker function from your context to add a new time tracker
-  //   addTimeTracker(/* Pass the necessary data for a new time tracker */);
-  //   // Navigate to the appropriate page, e.g., list of time trackers
-  //   navigate(/* Pass the appropriate path for the list of time trackers */);
-  // };
 
+  
   return (
     <>
       <div>
         <h3 className="text-2xl font-bold mb-4">Time Trackers</h3>
-        {/* onClick={handleAddTimeTracker} */}
+
         <button>Add Time Tracker</button>
 
         {timeTrackers ? (
@@ -69,4 +63,4 @@ export default function TimeTracker() {
       </div>
     </>
   );
-}
+};

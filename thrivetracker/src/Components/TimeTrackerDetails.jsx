@@ -1,15 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
+
 
 export default function TimeTrackerDetails() {
-  const { timeTrackers, setTimeTrackers } = useContext(AppContext);
-  let { index } = useParams();
-  const navigate = useNavigate();
+  const { timeTrackers } = useContext(AppContext);
+  // const { setTimeTrackers } = useContext(AppContext);
 
-  if (timeTrackers) {
-    console.log(index);
-  }
+  let { index } = useParams();
+  // const navigate = useNavigate();
+
+  // if (timeTrackers) {
+  //   console.log(index);
+  // }
 
   //get a live count of the time tracker
 

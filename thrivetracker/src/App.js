@@ -5,7 +5,6 @@ import axios from "axios";
 
 import Header from "./Components/Header";
 import Main from "./Components/Main";
-import Footer from "./Components/Footer";
 
 function App() {
 
@@ -64,10 +63,10 @@ function App() {
     getTokens();
   }, []);
 
-  console.log("Addictions: ", addictions)
-  console.log("Time Trackers: ", timeTrackers)
-  console.log("Money Trackers: ", Savings)
-  console.log("Tokens: ", tokens)
+  // console.log("Addictions: ", addictions)
+  // console.log("Time Trackers: ", timeTrackers)
+  // console.log("Money Trackers: ", Savings)
+  // console.log("Tokens: ", tokens)
 
   return (
     <div className="App">

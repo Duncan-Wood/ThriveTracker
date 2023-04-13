@@ -1,5 +1,3 @@
-//Ben's API file
-
 import Axios from "axios";
 
 export const BASE_URL = "http://localhost:8000";

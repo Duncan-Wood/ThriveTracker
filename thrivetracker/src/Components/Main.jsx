@@ -1,7 +1,7 @@
 import {Route, Routes} from 'react-router-dom'
 
 import Home from './Home'
-import Register from './Register'
+// import Register from './Register'
 import Login from './Login'
 import Header from './Header'
 import Nav from './Nav'
@@ -12,13 +12,14 @@ import TimeTracker from './TimeTracker'
 import TimeTrackerDetails from './TimeTrackerDetails'
 import MoneyTracker from './MoneyTracker'
 import Tokens from './Tokens'
+import AddTimeTracker from './AddTimeTracker'
 
 export default function Main(){
     return(
         <div>
             <Routes>
                 <Route path= "/" element= {<Home/>}/>
-                <Route path = "/register" element = {<Register/>}/>
+                <Route path = "/register" element = {<AddTimeTracker/>}/>
                 <Route path = "/login" element = {<Login/>}/>
                 {/* <Route path = "/steps" element = {<Steps/>}/>
                 <Route path = "/steps/:id" element = {<StepDetails/>}/> */}
