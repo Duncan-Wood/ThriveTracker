@@ -74,10 +74,12 @@ export default function TimeTrackerDetails() {
     
     // Call the deleteTimeTracker function from your context to delete the time tracker
     console.log(`deleted TimeTracker ${id}`);
-    Client.delete(`/time-trackers/${id}`);
-    // Navigate to the appropriate page, e.g., list of time trackers
-    navigate("/timetracker");
-
+    Client.delete(`/time-trackers/${id}`)
+    //using .then prevents the page from reloading before the delete is complete
+    .then(() => {
+      navigate(`/timetracker`);
+      window.location.reload()
+    })
     //fun fact! When you try to reload, the time tracker is still there because the state is not updated.
     // window.location.reload()
   };

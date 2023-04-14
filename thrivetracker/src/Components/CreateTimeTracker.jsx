@@ -10,8 +10,7 @@ import { format } from 'date-fns'
 export default function CreateTimeTracker() {
   format(new Date(), 'yyyy-MM-dd HH:mm:ss')
 
-  const [ setTimeTrackers] = useState([]);
-
+  const [timeTrackers, setTimeTrackers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function CreateTimeTracker() {
       }
     };
     getTimeTrackers();
-  }, [setTimeTrackers]);
+  }, []);
 
   const [formData, setFormData] = useState({
     user: 1,
