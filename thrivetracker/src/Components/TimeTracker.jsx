@@ -10,19 +10,18 @@ export default function TimeTracker() {
     const selectedTimeTracker = timeTrackers.find((timeTracker) => timeTracker.id === id);
     setSelectedTimeTracker(selectedTimeTracker);
     console.log(selectedTimeTracker)
-    navigate(`/timetracker/details/${id}`);
+    navigate(`/timetracker/details/${id}`)
   };
-  const handleAddTimeTracker = () => {
-    navigate("/addtimetracker");
+  const handleCreateTimeTracker = () => {
+    navigate("/createtimetracker");
   };
+
 
   return (
     <>
       <div>
         <h3 className="text-2xl font-bold mb-4">Time Trackers</h3>
-
-        <button onClick={handleAddTimeTracker}>Add Time Tracker</button>
-
+        <button onClick={handleCreateTimeTracker}>Create Time Tracker</button>
         {timeTrackers ? (
           timeTrackers.map((timeTracker, id) => {
             return (

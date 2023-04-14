@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Client from "../Services/api";
 
 export default function TimeTrackerDetails() {
-  const { selectedTimeTracker } = useContext(AppContext);
+  const { timeTrackers, selectedTimeTracker, setSelectedTimeTracker } = useContext(AppContext);
 
-  // let { id } = useParams();
   const navigate = useNavigate();
 
-  console.log(selectedTimeTracker)
+  console.log(selectedTimeTracker);
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -78,6 +77,11 @@ export default function TimeTrackerDetails() {
     // Navigate to the appropriate page, e.g., list of time trackers
     navigate("/timetracker");
   };
+  const handleUpdateTimeTracker = (id) => {
+    const selectedTimeTracker = timeTrackers.find((timeTracker) => timeTracker.id === id);
+    setSelectedTimeTracker(selectedTimeTracker);
+    console.log(selectedTimeTracker)
+    navigate(`/timetracker/details/${selectedTimeTracker.id}`)  };
 
   return (
     <>
@@ -132,9 +136,13 @@ export default function TimeTrackerDetails() {
               <span className="text-lg">{seconds} seconds / 60 seconds</span>
             </div>
           </div>
-          {/* onClick={handleUpdateTimeTracker} */}
-          <button>Update Time Tracker</button>
-          {/* onClick={handleDeleteTimeTracker} */}
+          <button
+            onClick={handleUpdateTimeTracker}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none"
+          >
+            Update Time Tracker
+          </button>
+
           <button
             onClick={handleDeleteTimeTracker}
             className="bg-red-500 text-white px-4 py-2 rounded-md mt-4"
