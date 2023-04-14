@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Client from "../Services/api";
 
 export default function TimeTrackerDetails() {
   const { timeTrackers, selectedTimeTracker, setSelectedTimeTracker } = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  const { id } = useParams();
 
   console.log(selectedTimeTracker);
 
@@ -77,11 +79,10 @@ export default function TimeTrackerDetails() {
     // Navigate to the appropriate page, e.g., list of time trackers
     navigate("/timetracker");
   };
-  const handleUpdateTimeTracker = (id) => {
-    const selectedTimeTracker = timeTrackers.find((timeTracker) => timeTracker.id === id);
-    setSelectedTimeTracker(selectedTimeTracker);
-    console.log(selectedTimeTracker)
-    navigate(`/timetracker/details/${selectedTimeTracker.id}`)  };
+
+  const handleUpdateTimeTracker = () => {
+    navigate(`/updatetimetracker/${id}`) 
+   };
 
   return (
     <>

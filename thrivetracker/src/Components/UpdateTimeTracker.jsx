@@ -6,23 +6,23 @@ import { AppContext } from "../Context/AppContext";
 
 export default function UpdateTimeTracker() {
   format(new Date(), 'yyyy-MM-dd HH:mm:ss')
-
-  useParams(selectedTimeTracker.id)
-
+  
   const { selectedTimeTracker } = useContext(AppContext);
 
   console.log(selectedTimeTracker)
 
   const navigate = useNavigate();
 
+  //use effect for triggering when it is
+
 
   const [formData, setFormData] = useState({
     user: 1,
-    addiction: selectedTimeTracker.addiction,
-    addiction_description: selectedTimeTracker.addiction_description,
-    start_time: selectedTimeTracker.start_time,
-    end_time: selectedTimeTracker.end_time? selectedTimeTracker.end_time : format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-    money_per_day: selectedTimeTracker.money_per_day,
+    addiction: selectedTimeTracker?.addiction? selectedTimeTracker.addiction : "loading...",
+    addiction_description: selectedTimeTracker?.addiction_description? selectedTimeTracker.addiction_description : "loading...",
+    start_time: selectedTimeTracker?.start_time? selectedTimeTracker.start_time : "loading...",
+    end_time: selectedTimeTracker?.end_time? selectedTimeTracker.end_time : '',
+    money_per_day: selectedTimeTracker?.money_per_day? selectedTimeTracker.money_per_day : 0,
   });
 
   const handleChange = (e) => {
@@ -49,7 +49,7 @@ export default function UpdateTimeTracker() {
     window.location.reload()
   };
 
-  return (
+  return ( 
     <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleFormSubmit}>
       <div className="mb-4">
         <label
@@ -132,23 +132,6 @@ export default function UpdateTimeTracker() {
           value={formData.money_per_day}
           onChange={handleChange}
           placeholder="Enter money per day"
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="money_per_day_currency"
-        >
-          Money per Day Currency:
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="money_per_day_currency"
-          type="text"
-          name="money_per_day_currency"
-          value={formData.money_per_day_currency}
-          onChange={handleChange}
-          placeholder="Enter money per day currency"
         />
       </div>
       <button type="submit">Submit</button>
