@@ -13,6 +13,8 @@ function App() {
   const [Savings, setSavings] = useState(null);
   const [tokens, setTokens] = useState(null);
   const BASE_URL = "http://localhost:8000";
+
+  const [selectedTimeTracker, setSelectedTimeTracker] = useState(null);
   
   //READ
   useEffect(() => {
@@ -71,7 +73,7 @@ function App() {
   return (
     <div className="App">
       <AppContext.Provider
-        value={{ addictions, timeTrackers, Savings, tokens, BASE_URL }}
+        value={{ addictions, timeTrackers, Savings, tokens, BASE_URL, selectedTimeTracker, setSelectedTimeTracker }}
       >
         <header className="App-header">
           <Header />

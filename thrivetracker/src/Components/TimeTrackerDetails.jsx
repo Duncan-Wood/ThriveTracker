@@ -4,32 +4,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import Client from "../Services/api";
 
 export default function TimeTrackerDetails() {
-  const { timeTrackers } = useContext(AppContext);
+  const { selectedTimeTracker } = useContext(AppContext);
 
-  let { id } = useParams();
+  // let { id } = useParams();
   const navigate = useNavigate();
 
-  // Use state to handle initial state of timeTracker
-  const [timeTracker, setTimeTracker] = useState(null);
-
-  // Use effect to find the time tracker with matching id
-  // prevent this from running until timeTrackers array is loaded
-  useEffect(() => {
-    // Check if timeTrackers array is loaded
-    if (timeTrackers && timeTrackers.length > 0) {
-      // Find the time tracker with matching id
-      const foundTimeTracker = timeTrackers.find((tracker) => tracker.id === id);
-  
-      // Set the timeTracker state if found
-      if (foundTimeTracker) {
-        setTimeTracker(foundTimeTracker);
-        console.log(timeTracker);
-      }
-    }
-  }, [timeTrackers, id]);
-  
-  console.log(timeTracker);
-  console.log(id)
+  console.log(selectedTimeTracker)
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -44,12 +24,12 @@ export default function TimeTrackerDetails() {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if (timeTracker) {
+    if (selectedTimeTracker) {
       // Check if timeTracker data is loaded
       // Convert the string values to JavaScript Date objects
-      const startTime = new Date(timeTracker.start_time);
-      let endTime = timeTracker.end_time
-        ? new Date(timeTracker.end_time)
+      const startTime = new Date(selectedTimeTracker.start_time);
+      let endTime = selectedTimeTracker.end_time
+        ? new Date(selectedTimeTracker.end_time)
         : null;
 
       // If end_time is null, update it to current time
@@ -73,7 +53,7 @@ export default function TimeTrackerDetails() {
       setSeconds(seconds);
 
       // Update progress percentage every second if endTime is null
-      if (!timeTracker.end_time) {
+      if (!selectedTimeTracker.end_time) {
         const interval = setInterval(() => {
           setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
           setHoursProgress((hours * 100) / 24);
@@ -88,23 +68,23 @@ export default function TimeTrackerDetails() {
         setSecondsProgress((seconds * 100) / 60);
       }
     }
-  }, [timeTracker]);
+  }, [selectedTimeTracker]);
 
   // Function to handle deleting a time tracker
   const handleDeleteTimeTracker = () => {
     // Call the deleteTimeTracker function from your context to delete the time tracker
-    console.log(`deleted TimeTracker ${id}`);
-    Client.delete(`/time-trackers/${id}`);
+    console.log(`deleted TimeTracker ${selectedTimeTracker.id}`);
+    Client.delete(`/time-trackers/${selectedTimeTracker.id}`);
     // Navigate to the appropriate page, e.g., list of time trackers
     navigate("/timetracker");
   };
 
   return (
     <>
-      {timeTrackers ? (
+      {selectedTimeTracker ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {timeTracker.addiction} free for
+            I've been {selectedTimeTracker.addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">

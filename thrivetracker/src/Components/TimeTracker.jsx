@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function TimeTracker() {
   const navigate = useNavigate();
-  const { timeTrackers } = useContext(AppContext);
+  const { timeTrackers, setSelectedTimeTracker } = useContext(AppContext);
 
   const showTimeTracker = (id) => {
+    const selectedTimeTracker = timeTrackers.find((timeTracker) => timeTracker.id === id);
+    setSelectedTimeTracker(selectedTimeTracker);
+    console.log(selectedTimeTracker)
     navigate(`/timetracker/details/${id}`);
   };
   const handleAddTimeTracker = () => {
