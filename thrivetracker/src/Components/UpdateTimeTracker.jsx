@@ -6,23 +6,24 @@ import { AppContext } from "../Context/AppContext";
 
 export default function UpdateTimeTracker() {
   format(new Date(), 'yyyy-MM-dd HH:mm:ss')
+
+  const { id } = useParams();
   
   const { selectedTimeTracker } = useContext(AppContext);
 
-  console.log(selectedTimeTracker)
+  // in the future, use the timeTrackers array and useParams to always load the correct timeTracker
+  // without having to pass it down from the parent component
+  // and having refresh issues 
 
   const navigate = useNavigate();
 
-  //use effect for triggering when it is
-
-
   const [formData, setFormData] = useState({
     user: 1,
-    addiction: selectedTimeTracker?.addiction? selectedTimeTracker.addiction : "loading...",
-    addiction_description: selectedTimeTracker?.addiction_description? selectedTimeTracker.addiction_description : "loading...",
-    start_time: selectedTimeTracker?.start_time? selectedTimeTracker.start_time : "loading...",
+    addiction: selectedTimeTracker?.addiction,
+    addiction_description: selectedTimeTracker?.addiction_description,
+    start_time: selectedTimeTracker?.start_time,
     end_time: selectedTimeTracker?.end_time? selectedTimeTracker.end_time : '',
-    money_per_day: selectedTimeTracker?.money_per_day? selectedTimeTracker.money_per_day : 0,
+    money_per_day: selectedTimeTracker?.money_per_day,
   });
 
   const handleChange = (e) => {
@@ -30,9 +31,10 @@ export default function UpdateTimeTracker() {
   };
 
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
     console.log(formData);
-    Client.put(`/time-trackers/<int:pk>/`, formData)
+    console.log(id)
+    Client.put(`/time-trackers/${parseInt(id)}/`, formData)
       .then(() => {
         navigate(`/timetracker`);
       })

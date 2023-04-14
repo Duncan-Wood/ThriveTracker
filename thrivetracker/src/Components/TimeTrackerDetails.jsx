@@ -4,13 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import Client from "../Services/api";
 
 export default function TimeTrackerDetails() {
-  const { timeTrackers, selectedTimeTracker, setSelectedTimeTracker } = useContext(AppContext);
+  const { selectedTimeTracker } = useContext(AppContext);
 
   const navigate = useNavigate();
 
   const { id } = useParams();
-
-  console.log(selectedTimeTracker);
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -72,12 +70,16 @@ export default function TimeTrackerDetails() {
   }, [selectedTimeTracker]);
 
   // Function to handle deleting a time tracker
-  const handleDeleteTimeTracker = () => {
+  const handleDeleteTimeTracker = (e) => {
+    
     // Call the deleteTimeTracker function from your context to delete the time tracker
-    console.log(`deleted TimeTracker ${selectedTimeTracker.id}`);
-    Client.delete(`/time-trackers/${selectedTimeTracker.id}`);
+    console.log(`deleted TimeTracker ${id}`);
+    Client.delete(`/time-trackers/${id}`);
     // Navigate to the appropriate page, e.g., list of time trackers
     navigate("/timetracker");
+
+    //fun fact! When you try to reload, the time tracker is still there because the state is not updated.
+    // window.location.reload()
   };
 
   const handleUpdateTimeTracker = () => {
