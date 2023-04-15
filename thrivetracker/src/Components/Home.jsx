@@ -9,13 +9,11 @@ const Home = () => {
   };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
-      {" "}
-      {/* Add padding to the container */}
       <h1 className="text-4xl font-bold mb-4">Welcome to ThriveTracker!</h1>
       <p className="text-lg text-gray-600 mb-8">
-        ThriveTracker is a time tracker for your addiction recovery.
+        ThriveTracker is a new way to help you in your addiction recovery.
       </p>
-      <div className="w-80">
+      <div className="w-150">
         <TimeTracker />
       </div>
       <div className="mt-8">
