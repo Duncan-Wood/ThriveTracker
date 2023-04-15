@@ -89,7 +89,7 @@ const TimeTrackerDetails = () => {
       {timeTracker ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {timeTracker.addiction} free for
+            I've been {timeTracker?.addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
