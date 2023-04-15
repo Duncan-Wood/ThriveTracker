@@ -7,28 +7,13 @@ import Header from "./Components/Header";
 import Main from "./Components/Main";
 
 function App() {
-
-  const [addictions, setAddictions] = useState(null);
-  const [timeTrackers, setTimeTrackers] = useState(null);
-  const [Savings, setSavings] = useState(null);
-  const [tokens, setTokens] = useState(null);
   const BASE_URL = "http://localhost:8000";
-
+  const [timeTrackers, setTimeTrackers] = useState(null);
   const [selectedTimeTracker, setSelectedTimeTracker] = useState(null);
-  
+  const [notes, setNotes] = useState(null);
+  // const [tokens, setTokens] = useState(null);
+
   //READ
-  useEffect(() => {
-    const getAddictions = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/addictions/`);
-        setAddictions(res.data);
-      } catch (error) {
-        console.error("Error fetching addictions: ", error);
-      }
-    };
-    getAddictions();
-  }, []);
-  
   useEffect(() => {
     const getTimeTrackers = async () => {
       try {
@@ -40,40 +25,48 @@ function App() {
     };
     getTimeTrackers();
   }, []);
-  
+
+  //Going to try and get notes and money implemented before presentation
   useEffect(() => {
-    const getSavings = async () => {
+    const getNotes = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/savings/`);
-        setSavings(res.data);
+        const res = await axios.get(`${BASE_URL}/notes/`);
+        setNotes(res.data);
       } catch (error) {
-        console.error("Error fetching savings: ", error);
+        console.error("Error fetching notes: ", error);
       }
     };
-    getSavings();
-  }, []);
-  
-  useEffect(() => {
-    const getTokens = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/tokens/`);
-        setTokens(res.data);
-      } catch (error) {
-        console.error("Error fetching tokens: ", error);
-      }
-    };
-    getTokens();
+    getNotes();
   }, []);
 
-  // console.log("Addictions: ", addictions)
-  console.log("Time Trackers: ", timeTrackers)
-  // console.log("Money Trackers: ", Savings)
-  // console.log("Tokens: ", tokens)
+  // useEffect(() => {
+  //   const getTokens = async () => {
+  //     try {
+  //       const res = await axios.get(`${BASE_URL}/tokens/`);
+  //       setTokens(res.data);
+  //     } catch (error) {
+  //       console.error("Error fetching tokens: ", error);
+  //     }
+  //   };
+  //   getTokens();
+  // }, []);
+
+  console.log("Time Trackers: ", timeTrackers);
 
   return (
     <div className="App">
       <AppContext.Provider
-        value={{ addictions, timeTrackers, Savings, tokens, BASE_URL, selectedTimeTracker, setSelectedTimeTracker }}
+        value={{
+          BASE_URL,
+          timeTrackers,
+          setTimeTrackers,
+          selectedTimeTracker,
+          setSelectedTimeTracker,
+          notes,
+          setNotes,
+          // tokens,
+          // setTokens,
+        }}
       >
         <header className="App-header">
           <Header />
@@ -81,9 +74,6 @@ function App() {
         <main>
           <Main />
         </main>
-        {/* <footer>
-          <Footer />
-        </footer> */}
       </AppContext.Provider>
     </div>
   );
