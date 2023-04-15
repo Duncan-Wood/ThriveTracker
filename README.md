@@ -2,7 +2,8 @@
 ![Thrivetracker Screenshot](thrivetracker/src/Assets/screenshot.png)
 
 ## Take a look
-[Thrivetracker has not yet been deployed](https://www.clappisonvet.com/wp-content/uploads/sites/222/2022/02/hang-in-there-baby.png)
+[Thrivetracker has not yet been deployed](https://www.clappisonvet.com/wp-content/uploads/sites/222/2022/02/hang-in-there-baby.png) <br/>
+[Trello Board](https://trello.com/b/WLRA6mGl/project-4-capstone)
 
 # ThriveTracker App
 Welcome to ThriveTracker, a new way to help you in your addiction recovery. ThriveTracker is a full-stack application built with React and Django featuring time tracking and progress monitoring functionalities to aid individuals in their addiction recovery journey.
