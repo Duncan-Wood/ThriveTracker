@@ -3,12 +3,14 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Client from "../Services/api";
 
-export default function TimeTrackerDetails() {
-  const { selectedTimeTracker } = useContext(AppContext);
-
+const TimeTrackerDetails = () => {
+  const { timeTrackers } = useContext(AppContext);
   const navigate = useNavigate();
-
   const { id } = useParams();
+
+  const timeTracker = timeTrackers?.find(
+    (timeTracker) => timeTracker.id === parseInt(id)
+  );
 
   // State to hold progress percentage
   const [daysProgress, setDaysProgress] = useState(0);
@@ -23,12 +25,11 @@ export default function TimeTrackerDetails() {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if (selectedTimeTracker) {
-      // Check if timeTracker data is loaded
-      // Convert the string values to JavaScript Date objects
-      const startTime = new Date(selectedTimeTracker.start_time);
-      let endTime = selectedTimeTracker.end_time
-        ? new Date(selectedTimeTracker.end_time)
+    // if (selectedTimeTracker) {
+    if (timeTracker) {
+      const startTime = new Date(timeTracker.start_time);
+      let endTime = timeTracker.end_time
+        ? new Date(timeTracker.end_time)
         : null;
 
       // If end_time is null, update it to current time
@@ -52,7 +53,7 @@ export default function TimeTrackerDetails() {
       setSeconds(seconds);
 
       // Update progress percentage every second if endTime is null
-      if (!selectedTimeTracker.end_time) {
+      if (!timeTracker.end_time) {
         const interval = setInterval(() => {
           setDaysProgress((days * 100) / 30); // Assuming 30 days as the goal
           setHoursProgress((hours * 100) / 24);
@@ -67,33 +68,28 @@ export default function TimeTrackerDetails() {
         setSecondsProgress((seconds * 100) / 60);
       }
     }
-  }, [selectedTimeTracker]);
+  }, [id, timeTracker]);
 
-  // Function to handle deleting a time tracker
-  const handleDeleteTimeTracker = (e) => {
-    
-    // Call the deleteTimeTracker function from your context to delete the time tracker
+
+  // DELETE
+  const handleDeleteTimeTracker = () => {
     console.log(`deleted TimeTracker ${id}`);
-    Client.delete(`/time-trackers/${id}`)
-    //using .then prevents the page from reloading before the delete is complete
-    .then(() => {
+    Client.delete(`/time-trackers/${id}`).then(() => {
       navigate(`/timetrackers`);
-      window.location.reload()
-    })
-    //fun fact! When you try to reload, the time tracker is still there because the state is not updated.
-    // window.location.reload()
+      window.location.reload();
+    });
   };
 
   const handleUpdateTimeTracker = () => {
-    navigate(`/updatetimetracker/${id}`) 
-   };
+    navigate(`/updatetimetracker/${id}`);
+  };
 
   return (
     <>
-      {selectedTimeTracker ? (
+      {timeTracker ? (
         <div className="bg-gray-100 p-8 rounded-lg shadow-md">
           <h3 className="text-2xl font-semibold mb-4">
-            I've been {selectedTimeTracker.addiction} free for
+            I've been {timeTracker.addiction} free for
           </h3>
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
@@ -160,4 +156,6 @@ export default function TimeTrackerDetails() {
       )}
     </>
   );
-}
+};
+
+export default TimeTrackerDetails;

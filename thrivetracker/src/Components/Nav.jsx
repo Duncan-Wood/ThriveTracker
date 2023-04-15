@@ -30,12 +30,6 @@ export default function Nav() {
                 >
                   Add Time Tracker
                 </Link>
-                <Link
-                  to="/moneytracker"
-                  className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Money Tracker
-                </Link>
               </div>
             </div>
           </div>
@@ -95,12 +89,6 @@ export default function Nav() {
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             Create Time Tracker
-          </Link>
-          <Link
-            to="/moneytracker"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Money Tracker
           </Link>
         </div>
       </div>
