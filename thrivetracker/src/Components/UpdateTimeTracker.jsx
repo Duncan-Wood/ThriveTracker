@@ -5,25 +5,17 @@ import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export default function UpdateTimeTracker() {
-  format(new Date(), "yyyy-MM-dd HH:mm:ss");
-
   const { id } = useParams();
-
-  const { selectedTimeTracker, timeTrackers } = useContext(AppContext);
-
-  // in the future, use the timeTrackers array and useParams to always load the correct timeTracker
-  // without having to pass it down from the parent component
-  // and having refresh issues
-
   const navigate = useNavigate();
+  const { selectedTimeTracker, timeTrackers } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     user: 1,
-    addiction: selectedTimeTracker?.addiction,
-    addiction_description: selectedTimeTracker?.addiction_description,
-    start_time: selectedTimeTracker?.start_time,
-    end_time: selectedTimeTracker?.end_time ? selectedTimeTracker.end_time : "",
-    money_per_day: selectedTimeTracker?.money_per_day,
+    addiction: "",
+    addiction_description: "",
+    start_time: "",
+    end_time: "",
+    money_per_day: "",
   });
 
   useEffect(() => {
@@ -31,19 +23,23 @@ export default function UpdateTimeTracker() {
       (timeTracker) => timeTracker.id === parseInt(id)
     );
     if (timeTracker) {
-      setFormData({
-        user: 1,
+      setFormData((prevFormData) => ({
+        ...prevFormData,
         addiction: timeTracker.addiction,
         addiction_description: timeTracker.addiction_description,
         start_time: timeTracker.start_time,
-        end_time: timeTracker.end_time ? timeTracker.end_time : "",
+        end_time: timeTracker.end_time,
         money_per_day: timeTracker.money_per_day,
-      });
+      }));
     }
   }, [id, timeTrackers]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const { id, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: value,
+    }));
   };
 
   const handleUpdateTimeTracker = () => {
@@ -52,7 +48,7 @@ export default function UpdateTimeTracker() {
     Client.put(`/time-trackers/${id}/`, formData)
       .then(() => {
         navigate(`/timetracker`);
-        window.location.reload()
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -60,6 +56,7 @@ export default function UpdateTimeTracker() {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     handleUpdateTimeTracker();
     navigate(`/timetracker`);
   };
@@ -154,7 +151,12 @@ export default function UpdateTimeTracker() {
               placeholder="Enter money per day"
             />
           </div>
-          <button type="submit">Submit</button>
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Submit
+          </button>
         </form>
       ) : (
         "loading..."
