@@ -51,8 +51,6 @@ function App() {
   //   getTokens();
   // }, []);
 
-  console.log("Time Trackers: ", timeTrackers);
-
   return (
     <div className="App">
       <AppContext.Provider

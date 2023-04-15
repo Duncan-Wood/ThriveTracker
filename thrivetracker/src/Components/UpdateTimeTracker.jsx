@@ -127,7 +127,7 @@ export default function UpdateTimeTracker() {
               id="end_time"
               type="text"
               name="end_time"
-              value={formData.end_time}
+              value={formData.end_time || ""}
               onChange={handleChange}
             />
           </div>

@@ -9,7 +9,6 @@ export default function TimeTracker() {
   const showTimeTracker = (id) => {
     const selectedTimeTracker = timeTrackers.find((timeTracker) => timeTracker.id === id);
     setSelectedTimeTracker(selectedTimeTracker);
-    console.log(selectedTimeTracker)
     navigate(`/timetracker/details/${id}`)
   };
   const handleCreateTimeTracker = () => {

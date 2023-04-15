@@ -1,39 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Client from "../Services/api";
-import { BASE_URL } from "../Services/api";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { format } from 'date-fns'
-import { AppContext } from "../Context/AppContext";
-import { useContext } from "react";
-
-
 
 export default function CreateTimeTracker() {
   format(new Date(), 'yyyy-MM-dd HH:mm:ss')
 
-  const { setTimeTrackers } = useContext(AppContext);
-
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const getTimeTrackers = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/time-trackers/`);
-        setTimeTrackers(res.data);
-      } catch (error) {
-        console.error("Error fetching time trackers: ", error);
-      }
-    };
-    getTimeTrackers();
-  }, [setTimeTrackers]);
 
   const [formData, setFormData] = useState({
     user: 1,
     addiction: "",
     addiction_description: "",
     start_time: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
-    // end_time: '',
     money_per_day: 0,
   });
 
@@ -41,9 +20,7 @@ export default function CreateTimeTracker() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-
   const handleSubmit = () => {
-    console.log(formData);
     Client.post(`/time-trackers/`, formData)
       .then(() => {
         navigate(`/timetrackers`);
@@ -56,7 +33,6 @@ export default function CreateTimeTracker() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleSubmit();
-    // handleUpdateTimeTracker()
     navigate(`/timetrackers`);
     window.location.reload()
   };
@@ -97,38 +73,6 @@ export default function CreateTimeTracker() {
           placeholder="Enter description"
         />
       </div>
-      {/* <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="start_time"
-        >
-          Start Time:
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="start_time"
-          type="datetime-local"
-          name="start_time"
-          value={formData.start_time}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="end_time"
-        >
-          End Time:
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="end_time"
-          type="datetime-local"
-          name="end_time"
-          value={formData.end_time}
-          onChange={handleChange}
-        />
-      </div> */}
        <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
@@ -142,22 +86,6 @@ export default function CreateTimeTracker() {
           type="text"
           name="start_time"
           value={formData.start_time}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="end_time"
-        >
-          End Time:
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="end_time"
-          type="text"
-          name="end_time"
-          value={formData.end_time}
           onChange={handleChange}
         />
       </div>
@@ -178,35 +106,6 @@ export default function CreateTimeTracker() {
           placeholder="Enter money per day"
         />
       </div>
-      {/* <div className="mb-4">
-        <label
-          className="block text-gray-700 text-sm font-bold mb-2"
-          htmlFor="money_per_day_currency"
-        >
-          Money per Day Currency:
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="money_per_day_currency"
-          type="text"
-          name="money_per_day_currency"
-          value={formData.money_per_day_currency}
-          onChange={handleChange}
-          placeholder="Enter money per day currency"
-        />
-      </div> */}
-
-      {/* <div className="mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time_tracker">
-      {/* <label>
-        Time Tracker:
-        <input
-          type="text"
-          name="savings.time_tracker"
-          value={formData.savings.time_tracker}
-          onChange={handleChange}
-        />
-      </label> */}
       <button type="submit">Submit</button>
     </form>
   );
