@@ -4,13 +4,16 @@ import { BASE_URL } from "../Services/api";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { format } from 'date-fns'
+import { AppContext } from "../Context/AppContext";
+import { useContext } from "react";
 
 
 
 export default function CreateTimeTracker() {
   format(new Date(), 'yyyy-MM-dd HH:mm:ss')
 
-  const [timeTrackers, setTimeTrackers] = useState([]);
+  const { setTimeTrackers } = useContext(AppContext);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function CreateTimeTracker() {
       }
     };
     getTimeTrackers();
-  }, []);
+  }, [setTimeTrackers]);
 
   const [formData, setFormData] = useState({
     user: 1,
@@ -43,7 +46,7 @@ export default function CreateTimeTracker() {
     console.log(formData);
     Client.post(`/time-trackers/`, formData)
       .then(() => {
-        navigate(`/timetracker`);
+        navigate(`/timetrackers`);
       })
       .catch((error) => {
         console.log(error);
@@ -54,7 +57,7 @@ export default function CreateTimeTracker() {
     e.preventDefault();
     handleSubmit();
     // handleUpdateTimeTracker()
-    navigate(`/timetracker`);
+    navigate(`/timetrackers`);
     window.location.reload()
   };
 

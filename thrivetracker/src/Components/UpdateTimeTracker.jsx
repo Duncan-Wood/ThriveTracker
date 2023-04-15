@@ -1,13 +1,12 @@
 import Client from "../Services/api";
 import { useNavigate, useParams } from "react-router-dom";
-import { format } from "date-fns";
 import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../Context/AppContext";
 
 export default function UpdateTimeTracker() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { selectedTimeTracker, timeTrackers } = useContext(AppContext);
+  const { timeTrackers } = useContext(AppContext);
 
   const [formData, setFormData] = useState({
     user: 1,
@@ -43,11 +42,9 @@ export default function UpdateTimeTracker() {
   };
 
   const handleUpdateTimeTracker = () => {
-    console.log(formData);
-    console.log(id);
     Client.put(`/time-trackers/${id}/`, formData)
       .then(() => {
-        navigate(`/timetracker`);
+        navigate(`/timetrackers`);
         window.location.reload();
       })
       .catch((error) => {
@@ -58,7 +55,7 @@ export default function UpdateTimeTracker() {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleUpdateTimeTracker();
-    navigate(`/timetracker`);
+    navigate(`/timetrackers`);
   };
 
   return (

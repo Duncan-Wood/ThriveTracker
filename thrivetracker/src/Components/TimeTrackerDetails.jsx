@@ -77,7 +77,7 @@ export default function TimeTrackerDetails() {
     Client.delete(`/time-trackers/${id}`)
     //using .then prevents the page from reloading before the delete is complete
     .then(() => {
-      navigate(`/timetracker`);
+      navigate(`/timetrackers`);
       window.location.reload()
     })
     //fun fact! When you try to reload, the time tracker is still there because the state is not updated.
