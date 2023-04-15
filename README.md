@@ -11,7 +11,7 @@ Welcome to ThriveTracker, a new way to help you in your addiction recovery. Thri
 - Create a time tracker for your addiction recovery.
 - Track your progress and earn tokens every 30 days (in development).
 - Add notes to your time tracker to help you stay on track (in development).
--Calculate your savings from not using your addiction (in development).
+- Calculate your savings from not using your addiction (in development).
 
 ## Technologies Used
 The following technologies were used in the development of ThriveTracker:
@@ -23,7 +23,10 @@ The following technologies were used in the development of ThriveTracker:
 - Axios, a promise-based HTTP client for the browser and Node.js.
 
 ### Backend
-
+- Django, a high-level Python web framework for building robust and scalable web applications.
+- Django REST framework, a powerful and flexible toolkit for building Web APIs.
+- Django CORS Headers, a middleware that enables Cross-Origin Resource Sharing (CORS) in Django applications, allowing the frontend and backend to communicate with each other.
+- Django Rest Framework Simple JWT, an extension for Django REST framework that provides JSON Web Token (JWT) authentication.
 
 ## Getting Started
 To get started with ThriveTracker, follow these steps:
@@ -42,7 +45,13 @@ ThriveTracker is an ongoing project, and there are more features planned for the
 - Adding more customization options for time trackers, such as setting goals and milestones.
 
 ## Contribution Guidelines
-I welcome contributions to my app! If you would like to contribute, please contact me for inquiries, to report bugs, or to propose improvements.
+Contributions to the ThriveTracker backend are welcome! If you would like to contribute, please follow these guidelines:
+
+- Fork the repository and create a new branch for your feature or bug fix.
+- Make your changes and test thoroughly.
+- Create a pull request with a detailed description of your changes.
+- Ensure that your code follows the project's coding standards and is well-documented.
+- Your contribution will be reviewed by the project maintainers, and any feedback will be provided for necessary changes.
 
 ## About Me 
 **Duncan Wood**<br/>
@@ -50,3 +59,7 @@ I welcome contributions to my app! If you would like to contribute, please conta
 [LinkedIn](https://www.linkedin.com/in/duncanwoodpro/) |
 [Github](https://github.com/Duncan-Wood)
 <br/>
+
+## Check Out The Backend!
+To see the code for the backend of Thrivetracker, visit the following link:<br/>
+[ThriveTracker Backend](https://github.com/Duncan-Wood/ThriveTracker-Backend)
