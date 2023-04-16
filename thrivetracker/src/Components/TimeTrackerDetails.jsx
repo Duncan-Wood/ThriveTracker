@@ -3,10 +3,16 @@ import { AppContext } from "../Context/AppContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Client from "../Services/api";
 
+// import Notes from "./Notes";
+// import axios from "axios";
+// import { BASE_URL } from "../Services/api";
+
 const TimeTrackerDetails = () => {
   const { timeTrackers } = useContext(AppContext);
   const navigate = useNavigate();
   const { id } = useParams();
+
+  // const [notes, setNotes] = useState([]);
 
   const timeTracker = timeTrackers?.find(
     (timeTracker) => timeTracker.id === parseInt(id)
@@ -84,6 +90,19 @@ const TimeTrackerDetails = () => {
     navigate(`/updatetimetracker/${id}`);
   };
 
+    // //Going to try and get notes and money implemented before presentation
+    // useEffect(() => {
+    //   const getNotes = async () => {
+    //     try {
+    //       const res = await axios.get(`${BASE_URL}/notes/`);
+    //       setNotes(res.data);
+    //     } catch (error) {
+    //       console.error("Error fetching notes: ", error);
+    //     }
+    //   };
+    //   getNotes();
+    // }, []);
+
   return (
     <>
       {timeTracker ? (
@@ -154,6 +173,9 @@ const TimeTrackerDetails = () => {
       ) : (
         <div>Loading...</div>
       )}
+      {/* <>
+        <Notes timeTracker={timeTracker} notes={notes} />
+      </> */}
     </>
   );
 };

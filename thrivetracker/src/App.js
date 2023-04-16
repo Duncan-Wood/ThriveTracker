@@ -10,7 +10,6 @@ function App() {
   const BASE_URL = "http://localhost:8000";
   const [timeTrackers, setTimeTrackers] = useState(null);
   const [selectedTimeTracker, setSelectedTimeTracker] = useState(null);
-  const [notes, setNotes] = useState(null);
   // const [tokens, setTokens] = useState(null);
 
   //READ
@@ -24,19 +23,6 @@ function App() {
       }
     };
     getTimeTrackers();
-  }, []);
-
-  //Going to try and get notes and money implemented before presentation
-  useEffect(() => {
-    const getNotes = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/notes/`);
-        setNotes(res.data);
-      } catch (error) {
-        console.error("Error fetching notes: ", error);
-      }
-    };
-    getNotes();
   }, []);
 
   // useEffect(() => {
@@ -60,8 +46,6 @@ function App() {
           setTimeTrackers,
           selectedTimeTracker,
           setSelectedTimeTracker,
-          notes,
-          setNotes,
           // tokens,
           // setTokens,
         }}
