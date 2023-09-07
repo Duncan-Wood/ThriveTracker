@@ -32,12 +32,17 @@ The following technologies were used in the development of ThriveTracker:
 ## Getting Started
 To get started with ThriveTracker, follow these steps:
 
+**Frontend**
 - Fork and clone this repository in your CLI.
 - Navigate to the directory you just cloned.
 - Run npm install to install necessary components.
 - Run npm start to run the app in localhost.
 
-**Backend instructions not yet included**
+**Backend**
+- Navigate to the directory where the backend code is located, thrivetracker_django.
+- Install the required dependencies by running pip install -r requirements.txt in your CLI.
+- Configure the Django settings in the settings.py file, including setting the SECRET_KEY, DEBUG, and ALLOWED_HOSTS variables.
+- Run the Django development server by running python manage.py runserver in your command line. The backend API will now be accessible at http://localhost:8000/ by default.
 
 ## Future Updates
 ThriveTracker is an ongoing project, and there are more features planned for the future, such as:
