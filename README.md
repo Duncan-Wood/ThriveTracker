@@ -1,5 +1,5 @@
 # Welcome to ThriveTracker!
-![Thrivetracker Screenshot](thrivetracker/src/Assets/screenshot.png)
+![Thrivetracker Screenshot](thrivetracker-frontend/src/Assets/screenshot.png)
 
 ## Take a look
 [Thrivetracker has not yet been deployed](https://www.clappisonvet.com/wp-content/uploads/sites/222/2022/02/hang-in-there-baby.png) <br/>
@@ -37,6 +37,8 @@ To get started with ThriveTracker, follow these steps:
 - Run npm install to install necessary components.
 - Run npm start to run the app in localhost.
 
+**Backend instructions not yet included**
+
 ## Future Updates
 ThriveTracker is an ongoing project, and there are more features planned for the future, such as:
 
@@ -60,7 +62,3 @@ Contributions to the ThriveTracker backend are welcome! If you would like to con
 [LinkedIn](https://www.linkedin.com/in/duncanwoodpro/) |
 [Github](https://github.com/Duncan-Wood)
 <br/>
-
-## Check Out The Backend!
-To see the code for the backend of Thrivetracker, visit the following link:<br/>
-[ThriveTracker Backend](https://github.com/Duncan-Wood/ThriveTracker-Backend)
