@@ -1,0 +1,16 @@
+{% extends 'addiction_events/base.html' %}
+
+{% block content %}
+
+    <center>
+        <h1>Welcome to the {{name}}! Events for {{month}} {{year}}</h1>
+        <br/><br/>
+        As of {{ current_time }}
+        <br/><br/>
+        <!-- we use |safe to tell Django Views to render the given html, since sometimes these pages can be used to inject malicious code. -->
+        {{ cal|safe }}
+        <br/><br/><br/><br/>
+        Copyright (c) {{ current_year }}
+    </center>
+
+{% endblock %}
