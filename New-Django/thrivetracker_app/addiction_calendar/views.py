@@ -2,6 +2,12 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from .models import Event
+
+def all_events(request):
+    events_list = Event.objects.all()
+    return render(request, 'addiction_events/events_list.html',
+            {'events_list': events_list})
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     # the {} is called a context dictionary
