@@ -1,0 +1,25 @@
+{% extends 'addiction_events/base.html' %}
+
+{% block content %}
+        <div class="card">
+            <div class="card-header">
+                Venue
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{ venue }}</h5>
+              <p class="card-text">
+                <ul>
+                    <li>Address: {{ venue.address }} </li>
+                    <li>Zip Code: {{ venue.zip_code }}</li>
+                    <li>Phone: {{ venue.phone }} </li>
+                    <li>Email: {{ venue.email }} </li>
+                    <li>Website: <a href="{{ venue.web }}">{{ venue.web }}</a> 
+                    </li>
+                </ul>
+                <br/>
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+
+{% endblock %}
