@@ -2,7 +2,24 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from django.http import HttpResponseRedirect
 from .models import Event
+from .forms import VenueForm
+
+def add_venue(request):
+    submitted = request.GET.get('submitted', False)
+    form = None
+
+    if request.method == 'POST':
+        form = VenueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/add_venue?submitted=True')
+        else:
+            submitted = True 
+    if form is None:
+        form = VenueForm()
+    return render(request, 'addiction_events/add_venue.html', {'form': form, 'submitted': submitted})
 
 def all_events(request):
     events_list = Event.objects.all()
