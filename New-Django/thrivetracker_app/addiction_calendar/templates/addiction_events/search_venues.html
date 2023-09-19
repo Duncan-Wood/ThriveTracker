@@ -1,0 +1,17 @@
+{% extends 'addiction_events/base.html' %}
+
+{% block content %}
+
+    <center>
+        {% if searched %}
+        <h1>You Searched For {{ searched }}</h1>
+        {% for venue in venues %}
+            <a href="{% url 'show-venue' venue.id %}"> {{ venue }} <br/>
+        {% endfor %}
+
+        {% else %}
+        <h1>Hey! You forgot to search for a venue.</h1>
+        {% endif %}
+    </center>
+
+{% endblock %}
