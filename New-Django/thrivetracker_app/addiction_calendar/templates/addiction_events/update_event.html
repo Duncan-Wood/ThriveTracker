@@ -1,0 +1,12 @@
+{% extends 'addiction_events/base.html' %}
+
+{% block content %}
+
+    <h1>Update Event...</h1>
+    {{ venue }}
+    <form action="" method=POST>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br/>
+        <input type='submit' value='Update' class='btn btn-secondary'>
+{% endblock %}
