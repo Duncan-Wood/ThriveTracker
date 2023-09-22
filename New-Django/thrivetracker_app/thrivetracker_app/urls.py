@@ -12,4 +12,4 @@ admin.site.site_title = "ThriveTracker Admin Portal"
 admin.site.index_title = "Welcome to the ThriveTracker Admin Portal"
 
 # Everything in the Admin side of Django can be customized.
-# navigate to venv/libsite-packages/django/contrib/admin/templates/admin/ or ./templates/admin
+# navigate to venv/libsite-packages/django/contrib/admin/templates/admin/ or ./templates/admin/
