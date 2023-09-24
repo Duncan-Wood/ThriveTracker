@@ -1,12 +1,32 @@
 {% extends 'addiction_events/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
+    {% if user == event.manager %}
 
     <h1>Update Event...</h1>
+    Logged In User: {{ user }}
+    <br/>
+    Event Manager: {{ event.manager }}
+    <br/>
     {{ venue }}
     <form action="" method=POST>
         {% csrf_token %}
         {{ form.as_p }}
         <br/>
         <input type='submit' value='Update' class='btn btn-secondary'>
+
+    {% else %}
+    <h2>Access Denied</h2>
+    <h3>Sorry! You must be the event manager to view this page.</h3>
+    <br/>
+    Event Manager: {{ event.manager }}
+    <br/>
+    {% endif %}
+
+{% else %}
+<h1>Sorry! You must be logged in to view this page.</h1>
+<br/>
+<a href="{% url 'login' %}">Login</a> | <a href="{% url 'register-user' %}">Register</a>
+{% endif %}
 {% endblock %}

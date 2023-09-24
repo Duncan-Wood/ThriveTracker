@@ -4,7 +4,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event, Venue
-from .forms import VenueForm, EventForm
+from .forms import VenueForm, EventForm, EventFormAdmin
 import csv
 
 # for the PDF functionality
@@ -96,21 +96,36 @@ def add_event(request):
     submitted = request.GET.get('submitted', False)
 
     if request.method == 'POST':
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/add_event?submitted=True')
+        if request.user.is_superuser:
+            form = EventFormAdmin(request.POST)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect('/add_event?submitted=True')
         else:
-            submitted = True 
+            form = EventForm(request.POST)
+            if form.is_valid():
+                event = form.save(commit=False)
+                event.manager = request.user
+                event.save()
+                return HttpResponseRedirect('/add_event?submitted=True')
+            else:
+                submitted = True 
     else:
-        form = EventForm()
+        # just going to the page, not submitting
+        if request.user.is_superuser:
+            form = EventFormAdmin()
+        else:
+            form = EventForm()
 
     context = {'form': form, 'submitted': submitted}
     return render(request, 'addiction_events/add_event.html', context)
 
 def update_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    form = EventForm(request.POST or None, instance=event)
+    if request.user.is_superuser:
+        form = EventFormAdmin(request.POST or None, instance=event)
+    else:
+        form = EventForm(request.POST or None, instance=event)
     if form.is_valid():
         form.save()
         return redirect('events-list')
@@ -147,7 +162,7 @@ def list_venues(request):
     venue_list = Venue.objects.all()
 
     # add pagination
-    p = Paginator(Venue.objects.all(), 1)
+    p = Paginator(Venue.objects.all(), 3)
     page = request.GET.get('page')
     venues = p.get_page(page)
     nums = "a" * venues.paginator.num_pages # multiply by a to get an iterable number of pages
@@ -161,7 +176,10 @@ def add_venue(request):
     if request.method == 'POST':
         form = VenueForm(request.POST)
         if form.is_valid():
-            form.save()
+            venue = form.save(commit=False)
+            venue.owner = request.user.id
+            venue.save()
+            # form.save()
             return HttpResponseRedirect('/add_venue?submitted=True')
         else:
             submitted = True 
