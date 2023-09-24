@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'addiction_calendar',
+    'members',
 ]
 
 MIDDLEWARE = [
