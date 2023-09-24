@@ -1,4 +1,5 @@
 {% extends 'addiction_events/base.html' %} {% block content %}
+
 <h1>Venues...</h1>
 <br />
 <table class="table table-bordered table-striped table-hover">
@@ -7,6 +8,7 @@
     <td>
       <a href="{% url 'show-venue' venue.id %}"> {{ venue }}</a>
     </td>
+    {% if user.is_authenticated %}
     <td align="right">
       <a
         href="{% url 'update-venue' venue.id %}"
@@ -19,6 +21,7 @@
         >Delete Venue</a
       >
     </td>
+    {% endif %}
   </tr>
   {% endfor %}
 </table>
@@ -58,4 +61,5 @@ Total Pages: {{venues.paginator.num_pages}}<br />
   </ul>
 </nav>
 <br />
+
 {% endblock %}

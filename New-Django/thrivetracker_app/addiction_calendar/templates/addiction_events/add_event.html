@@ -1,6 +1,8 @@
 {% extends 'addiction_events/base.html' %}
 
 {% block content %}
+{% if user.is_authenticated %}
+
     <h1>Add Event to the Database</h1>
     <br/><br/>
     {% if submitted %}
@@ -13,4 +15,10 @@
             </form>
         {% endif %}
     <br/><br/>
+    
+    {% else %}
+        <h1>Sorry! You must be logged in to view this page.</h1>
+        <br/>
+        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register-user' %}">Register</a>
+    {% endif %}
 {% endblock %}
