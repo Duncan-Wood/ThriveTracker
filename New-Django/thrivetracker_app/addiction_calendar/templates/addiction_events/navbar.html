@@ -33,9 +33,15 @@
                 >Events List</a
               >
             </li>
+            <li>
+              <a class="dropdown-item" href="{%url 'search-events'%}">Search Events</a>
+            </li>
             {% if user.is_authenticated %}
             <li>
               <a class="dropdown-item" href="{%url 'add-event'%}">Add Event</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="{%url 'my-events'%}">My Events</a>
             </li>
             {% endif %}
           </ul>

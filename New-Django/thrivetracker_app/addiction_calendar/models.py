@@ -12,7 +12,8 @@ class Venue(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+# eventually need to change this to user and use it in Event model    
 class ThriveTrackerUser(models.Model):
     first_name = models.CharField('First Name', max_length=200)
     last_name = models.CharField('Last Name', max_length=200)

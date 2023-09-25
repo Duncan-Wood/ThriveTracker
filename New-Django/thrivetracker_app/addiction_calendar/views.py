@@ -4,6 +4,7 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
 from .models import Event, Venue
 from .forms import VenueForm, EventForm, EventFormAdmin
 import csv
@@ -19,8 +20,17 @@ from reportlab.lib.pagesizes import letter
 from django.core.paginator import Paginator
 
 
-
-
+# Create My Events Page
+def my_events(request):
+    if request.user.is_authenticated:
+        me = request.user.id
+        events = Event.objects.filter(attendees=me)
+        return render(request, 'addiction_events/my_events.html',
+                      {"events":events})
+    else:
+        messages.success(request, ("You Aren't Authorized To View This Page"))
+        return redirect('home')
+    
 # generate a pdf file Venue list
 def venue_pdf(request):
     # create Bytestream buffer
@@ -90,10 +100,16 @@ def delete_venue(request, venue_id):
     venue.delete()
     return redirect('list-venues')
 
+# Delete an Event
 def delete_event(request, event_id):
     event = Event.objects.get(pk=event_id)
-    event.delete()
-    return redirect('events-list')
+    if request.user == event.manager:
+        event.delete()
+        messages.success(request, ("Event Deleted!!"))
+        return redirect('list-events')
+    else:
+        messages.success(request, ("You Aren't Authorized To Delete This Event!"))
+        return redirect('list-events')
 
 def add_event(request):
     submitted = request.GET.get('submitted', False)
@@ -153,6 +169,16 @@ def search_venues(request):
             {'searched': searched, 'venues': venues})
     else:
         return render(request, 'addiction_events/search_venues.html',
+        {})
+    
+def search_events(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        events = Event.objects.filter(name__contains=searched)
+        return render(request, 'addiction_events/search_events.html',
+            {'searched': searched, 'events': events})
+    else:
+        return render(request, 'addiction_events/search_events.html',
         {})
 
 def show_venue(request, venue_id):
