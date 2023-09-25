@@ -3,6 +3,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib.auth.models import User
 from .models import Event, Venue
 from .forms import VenueForm, EventForm, EventFormAdmin
 import csv
@@ -16,6 +17,8 @@ from reportlab.lib.pagesizes import letter
 
 # Import pagination tools
 from django.core.paginator import Paginator
+
+
 
 
 # generate a pdf file Venue list
@@ -154,8 +157,9 @@ def search_venues(request):
 
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
+    venue_owner = User.objects.get(pk=venue.owner)
     return render(request, 'addiction_events/show_venue.html',
-        {'venue': venue})
+        {'venue': venue, 'venue_owner': venue_owner})
 
 def list_venues(request):
     # venue_list = Venue.objects.all().order_by('?')
