@@ -8,7 +8,8 @@
         {% if submitted %}
             Your venue was submitted successfully!
         {% else %}
-            <form action="" method="POST">
+        <!-- The enctype allows us to use images -->
+            <form action="" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="submit" value="Submit" class="btn btn-secondary">
