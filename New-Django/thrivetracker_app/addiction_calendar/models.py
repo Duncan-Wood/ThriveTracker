@@ -34,6 +34,7 @@ class Event(models.Model):
     description = models.TextField('Event Description', blank=True)
     # This is how we connect Event to ThriveTrackerUser in a many-to-many relationship
     attendees = models.ManyToManyField(ThriveTrackerUser, blank=True)
+    approved = models.BooleanField('Aprroved', default=False)
 
     def __str__(self):
         return self.name

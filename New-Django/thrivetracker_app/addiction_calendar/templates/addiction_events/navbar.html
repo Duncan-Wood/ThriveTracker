@@ -43,6 +43,11 @@
             <li>
               <a class="dropdown-item" href="{%url 'my-events'%}">My Events</a>
             </li>
+            {% if user.is_superuser%}
+            <li>
+              <a class="dropdown-item" href="{%url 'admin-approval'%}">Admin Approval</a>
+            </li>
+            {% endif %}
             {% endif %}
           </ul>
         </li>

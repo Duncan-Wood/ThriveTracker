@@ -5,6 +5,8 @@ from datetime import datetime
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+
 from .models import Event, Venue
 from .forms import VenueForm, EventForm, EventFormAdmin
 import csv
@@ -19,6 +21,41 @@ from reportlab.lib.pagesizes import letter
 # Import pagination tools
 from django.core.paginator import Paginator
 
+# Create Admin Event Approval Page
+def admin_approval(request):
+    # Get The Venues
+    venue_list = Venue.objects.all()
+    # Get Counts
+    event_count = Event.objects.all().count()
+    venue_count = Venue.objects.all().count()
+    user_count = User.objects.all().count()
+
+    event_list = Event.objects.all().order_by('-event_date')
+    if request.user.is_superuser:
+        if request.method == "POST":
+            # Get list of checked box id's
+            id_list = request.POST.getlist('boxes')
+
+            # Uncheck all events
+            event_list.update(approved=False)
+
+            # Update the database
+            for x in id_list:
+                Event.objects.filter(pk=int(x)).update(approved=True)
+            # Show Success Message and Redirect
+            messages.success(request, ("Event List Approval Has Been Updated!"))
+            return redirect('events-list')
+        else:
+            return render(request, 'addiction_events/admin_approval.html',
+            {"event_list": event_list,
+            "event_count":event_count,
+            "venue_count":venue_count,
+            "user_count":user_count,
+            "venue_list":venue_list})
+    else:
+        messages.success(request, ("You aren't authorized to view this page!"))
+        return redirect('home')
+    # return render(request, 'addiction_events/admin_approval.html')
 
 # Create My Events Page
 def my_events(request):
