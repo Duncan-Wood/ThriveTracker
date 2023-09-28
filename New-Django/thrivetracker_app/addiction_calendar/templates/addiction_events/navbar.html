@@ -43,11 +43,6 @@
             <li>
               <a class="dropdown-item" href="{%url 'my-events'%}">My Events</a>
             </li>
-            {% if user.is_superuser%}
-            <li>
-              <a class="dropdown-item" href="{%url 'admin-approval'%}">Admin Approval</a>
-            </li>
-            {% endif %}
             {% endif %}
           </ul>
         </li>
@@ -101,16 +96,22 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{%url 'logout'%}">Logout</a>
-        </li>
+        {% if user.is_superuser %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin-approval' %}">Admin</a>
+          </li>
+        {%endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
         {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{%url 'register-user'%}">Register</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{%url 'login'%}">Login</a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+          </li>
         {% endif %}
       </ul>
       <form

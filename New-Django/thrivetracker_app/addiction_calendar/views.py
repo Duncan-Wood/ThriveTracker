@@ -21,6 +21,27 @@ from reportlab.lib.pagesizes import letter
 # Import pagination tools
 from django.core.paginator import Paginator
 
+# Show Event
+def show_event(request, event_id):
+	event = Event.objects.get(pk=event_id)
+	return render(request, 'addiction_events/show_event.html', {
+			"event":event
+			})
+
+# Show Events In A Venue
+def venue_events(request, venue_id):
+	# Grab the venue
+	venue = Venue.objects.get(id=venue_id)
+	# Grab the events from that venue
+	events = venue.event_set.all()
+	if events:
+		return render(request, 'addiction_events/venue_events.html', {
+			"events":events
+			})
+	else:
+		messages.success(request, ("That Venue Has No Events At This Time..."))
+		return redirect('admin_approval')
+    
 # Create Admin Event Approval Page
 def admin_approval(request):
     # Get The Venues
@@ -221,8 +242,10 @@ def search_events(request):
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
     venue_owner = User.objects.get(pk=venue.owner)
+    # Grab the events from that venue
+    events = venue.event_set.all()
     return render(request, 'addiction_events/show_venue.html',
-        {'venue': venue, 'venue_owner': venue_owner})
+        {'venue': venue, 'venue_owner': venue_owner, 'events': events})
 
 def list_venues(request):
     # venue_list = Venue.objects.all().order_by('?')
