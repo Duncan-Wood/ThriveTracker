@@ -1,0 +1,10 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{% for timetracker in timetracker_list %} 
+{{ timetracker.name }}<br />
+{{ timetracker.description }}<br />
+{{ timetracker.created_at }}<br />
+{{ timetracker.end_date }}<br />
+<br />
+{% endfor %}
+ {% endblock %}
